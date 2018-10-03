@@ -1,0 +1,69 @@
+import profesionales.*
+import empresaDeServicios.*
+
+describe "universidades , profesionales y empresa"{
+	
+	const deSanMartin = new Universidad()
+	const deRosario = new Universidad()
+	const deCorrientes = new Universidad()
+	const deHurlingham = new Universidad()
+
+	const juana = new ProfesionalVinculado()
+	const melina = new ProfesionalAsociado()
+	const rocio = new ProfesionalLibre()
+	const luciana = new ProfesionalLibre()
+	
+		var empresaDeGerman = new EmpresaDeServicios()
+ 
+fixture {
+	deSanMartin.provincia("BuenosAires")
+	deSanMartin.honorarios(3500)
+	deRosario.provincia("SantaFe")
+	deRosario.honorarios(2800)
+	deCorrientes.provincia("Corrientes")
+	deCorrientes.honorarios(4200)
+	deHurlingham.provincia("BuenosAires")
+	deHurlingham.honorarios(8800)
+	
+	juana.universidad(deRosario)
+	melina.universidad(deCorrientes)
+	rocio.universidad(deHurlingham)
+	rocio.honorarios(5000)
+	rocio.provinciasDondePuedeTrabajar(#{"SantaFe", "Cordoba", "Buenos Aires"})
+	luciana.universidad(deRosario)
+	luciana.honorarios(3200)
+	luciana.provinciasDondePuedeTrabajar(#{"SantaFe", "Entre Rios"})
+	
+	empresaDeGerman.honorariosDeReferencia(3500)
+	empresaDeGerman.agregarProfesional(juana)
+	empresaDeGerman.agregarProfesional(melina)
+	empresaDeGerman.agregarProfesional(rocio)
+	empresaDeGerman.agregarProfesional(luciana)
+	}
+	
+	test "rocio es la profesional mas caro"{
+		assert.equals(empresaDeGerman.profesionalesCaros(),#{ rocio})
+	
+	}
+
+ 	/* 
+	test "universidades formadoras son las de Rosario, Corrientes y Hurlingham"{
+		assert.equals(empresaDeGerman.universidadesFormadoras(), [deRosario, deCorrientes, deHurlingham])		
+	} 
+*/
+
+	test "profesional mas barato a juana"{
+		assert.equals(empresaDeGerman.profesionalMasBarato(), juana)
+	}
+/* 	
+	test"las provincias de Santa Fe y Cordoba estan cubiertas, misiones no"{
+		assert.equals(empresaDeGerman.provinciaCubierta("SantaFe"),true)
+		assert.equals(empresaDeGerman.provinciaCubierta("Cordoba"),true)
+	}
+*/
+	test "dos de los profesionales estudiaron en Rosario, uno en Hurlingham y ninguno en San Martin"{
+		assert.equals(empresaDeGerman.cantidadDeProfesionalesQueEstudiaronEn(deRosario), 2)	
+		assert.equals(empresaDeGerman.cantidadDeProfesionalesQueEstudiaronEn(deHurlingham), 1)	
+		assert.equals(empresaDeGerman.cantidadDeProfesionalesQueEstudiaronEn(deSanMartin), 0)
+	}
+}
