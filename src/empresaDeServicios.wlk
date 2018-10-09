@@ -17,6 +17,8 @@ class EmpresaDeServicios{
 	
 	method universidadesFormadoras(){
 		var universidadesDeLosProfesionales = []
+		// TODO Le estás mandando el mensaje .universidad() a la colección de profesionales en lugar de a uno en particular.
+		// Igual no deberías usar forEach para responder una pregunta. 
 		profesionales.forEach{profesional => universidadesDeLosProfesionales.add(profesionales.universidad())}
 		return universidadesDeLosProfesionales.withOutDuplicates()
 	}

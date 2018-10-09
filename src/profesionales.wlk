@@ -13,19 +13,13 @@ class ProfesionalAsociado {
 }
 
 class Universidad {
-	var provincia
-	var  honorarios
-	method honorarios() {return honorarios}
-	method honorarios(cantidad){honorarios = cantidad}
-	method provincia() { return provincia}
-	method provincia(prov) { provincia = prov}
+	var property provincia
+	var property honorarios
 }
 
 class ProfesionalVinculado {
-	var universidad
+	var property universidad
 		
-	method universidad() { return universidad }
-	method universidad(univ) { universidad = univ }
 	method provinciasDondePuedeTrabajar() {return #{universidad.provincia()}}
 	method honorariosPorHora() { return universidad.honorarios()}
 }
